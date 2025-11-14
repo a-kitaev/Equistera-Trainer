@@ -1,0 +1,101 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# MMPose
+mmpose/
+work_dirs/
+checkpoints/*.pth
+!checkpoints/.gitkeep
+embeddings/
+data/
+checkpoints/
+.onnx
+
+
+# Data
+data/images/
+data/raw/
+data/annotations/*.json
+!data/annotations/.gitkeep
+
+# Outputs
+*.log
+*.pth
+*.pkl
+visualizations/
+analysis/
+output*.jpg
+output*.png
+
+# TensorBoard
+events.out.tfevents.*
+tf_logs/
+
+# Weights & Biases
+wandb/
+
+# Temporary files
+*.tmp
+*.bak
+*.cache
+deploy_package/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Azure / Cloud
+*.key
+*.pem
+!MLCompute_key.pem
+
+# Large model files (use Git LFS or upload separately)
+*.onnx
+*.engine
+*.trt

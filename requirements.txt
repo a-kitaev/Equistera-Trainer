@@ -1,0 +1,43 @@
+# MMPose and dependencies
+mmpose>=1.3.0
+mmcv>=2.0.0
+mmengine>=0.8.0
+mmdet>=3.0.0
+
+# PyTorch (install separately based on your CUDA version)
+# torch>=2.0.0
+# torchvision>=0.15.0
+
+# Data processing
+# NumPy 1.26.4 is compatible with PyTorch 2.1.0
+numpy==1.26.4
+# OpenCV 4.8.1.78 is compatible with NumPy 1.26.4
+opencv-python-headless==4.8.1.78
+pillow>=9.4.0,<11.0.0
+scipy>=1.10.0,<2.0.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Data augmentation
+# Albumentations 1.3.1 is the last version compatible with MMPose's import structure
+albumentations==1.3.1
+imgaug>=0.4.0
+
+# Utilities
+pyyaml>=6.0
+tqdm>=4.65.0
+tensorboard>=2.12.0
+wandb>=0.15.0  # Optional: for experiment tracking
+
+# COCO API
+pycocotools>=2.0.6
+xtcocotools>=1.14  # For COCO format tools
+
+# JSON handling
+json5>=0.9.14
+
+# V2 Enhancements: Text embeddings and NLP
+sentence-transformers>=2.2.0  # For anatomical priors via text embeddings
+transformers>=4.30.0  # Required by sentence-transformers
