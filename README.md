@@ -123,9 +123,32 @@ python tools/train.py configs/hrnet_w32_ap10k.py --work-dir work_dirs/hrnet_ap10
 python tools/train.py configs/hrnet_w32_animalpose.py --work-dir work_dirs/hrnet_animalpose
 ```
 
+## Export to ONNX
+Export trained models to ONNX format for deployment:
+```bash
+python tools/export_onnx_opset21.py
+```
+
 ## Testing
+
+### Test PyTorch Model
 ```bash
 python tools/test.py configs/rtmpose_m_ap10k.py work_dirs/rtmpose_m/best.pth
+```
+
+### Test ONNX Model
+Test ONNX exported models on test datasets with COCO metrics:
+```bash
+# Basic testing
+python tools/test_onnx.py --onnx work_dirs/rtmpose_m_horse_opset17.onnx \
+                           --ann data/annotations/horse_test.json \
+                           --img-dir data/test
+
+# With visualizations
+python tools/test_onnx.py --onnx work_dirs/rtmpose_m_horse_opset17.onnx \
+                           --ann data/annotations/horse_test.json \
+                           --img-dir data/test \
+                           --show-dir visualizations/onnx_test
 ```
 
 ## Visualization
