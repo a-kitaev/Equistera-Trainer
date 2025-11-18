@@ -35,6 +35,10 @@ wandb>=0.15.0  # Optional: for experiment tracking
 pycocotools>=2.0.6
 xtcocotools>=1.14  # For COCO format tools
 
+# ONNX Runtime for model inference
+onnxruntime>=1.15.0  # For ONNX model testing
+onnx>=1.14.0  # For ONNX model validation
+
 # JSON handling
 json5>=0.9.14
 
