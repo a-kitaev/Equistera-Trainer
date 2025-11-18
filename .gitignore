@@ -94,6 +94,7 @@ Desktop.ini
 *.key
 *.pem
 !MLCompute_key.pem
+i-destiny.json
 
 # Large model files (use Git LFS or upload separately)
 *.onnx
