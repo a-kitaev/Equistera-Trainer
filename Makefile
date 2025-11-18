@@ -1,7 +1,7 @@
 # Makefile for Equistera Trainer
 # Convenient commands for common tasks
 
-.PHONY: help setup install download-ckpts verify-data train-rtm train-hrnet-ap10k train-hrnet-animal test-rtm test-hrnet visualize monitor tensorboard clean deploy-azure
+.PHONY: help setup install download-ckpts verify-data train-rtm train-hrnet-ap10k train-hrnet-animal test-rtm test-hrnet export-onnx test-onnx test-onnx-vis visualize monitor tensorboard clean deploy-azure
 
 # Default target
 help:
@@ -34,6 +34,11 @@ help:
 	@echo "  make train-rtm          - Train RTMPose-M model"
 	@echo "  make train-hrnet-ap10k  - Train HRNet-W32 on AP-10K"
 	@echo "  make train-hrnet-animal - Train HRNet-W32 on AnimalPose"
+	@echo ""
+	@echo "ONNX Export and Testing:"
+	@echo "  make export-onnx        - Export trained model to ONNX"
+	@echo "  make test-onnx          - Test ONNX model on test dataset"
+	@echo "  make test-onnx-vis      - Test ONNX with visualizations"
 	@echo ""
 	@echo "Evaluation:"
 	@echo "  make test-rtm           - Test RTMPose-M model"
@@ -242,6 +247,47 @@ test-hrnet:
 	else \
 		echo "Error: Checkpoint not found at work_dirs/hrnet_ap10k/best.pth"; \
 	fi
+
+# ONNX Export and Testing
+export-onnx:
+	@echo "Exporting model to ONNX..."
+	python tools/export_onnx_opset21.py
+
+test-onnx:
+	@echo "Testing ONNX model..."
+	@if [ -f "work_dirs/rtmpose_m_horse_opset17.onnx" ]; then \
+		if [ -f "data/annotations/horse_test.json" ] && [ -d "data/test" ]; then \
+			python tools/test_onnx.py \
+				--onnx work_dirs/rtmpose_m_horse_opset17.onnx \
+				--ann data/annotations/horse_test.json \
+				--img-dir data/test; \
+		else \
+			echo "Error: Test dataset not found"; \
+			echo "Expected: data/annotations/horse_test.json and data/test/"; \
+		fi; \
+	else \
+		echo "Error: ONNX model not found at work_dirs/rtmpose_m_horse_opset17.onnx"; \
+		echo "Run 'make export-onnx' first"; \
+	fi
+
+test-onnx-vis:
+	@echo "Testing ONNX model with visualizations..."
+	@if [ -f "work_dirs/rtmpose_m_horse_opset17.onnx" ]; then \
+		if [ -f "data/annotations/horse_test.json" ] && [ -d "data/test" ]; then \
+			python tools/test_onnx.py \
+				--onnx work_dirs/rtmpose_m_horse_opset17.onnx \
+				--ann data/annotations/horse_test.json \
+				--img-dir data/test \
+				--show-dir visualizations/onnx_test; \
+		else \
+			echo "Error: Test dataset not found"; \
+			echo "Expected: data/annotations/horse_test.json and data/test/"; \
+		fi; \
+	else \
+		echo "Error: ONNX model not found at work_dirs/rtmpose_m_horse_opset17.onnx"; \
+		echo "Run 'make export-onnx' first"; \
+	fi
+
 
 # Visualization
 visualize:
