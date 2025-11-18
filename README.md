@@ -43,7 +43,8 @@ This project fine-tunes MMPose models for 26-keypoint horse pose estimation.
 │   └── hrnet_w32_animalpose.py  # HRNet on AnimalPose
 ├── tools/                     # Training and utility scripts
 │   ├── train.py              # Training script
-│   ├── test.py               # Testing script
+│   ├── test.py               # Testing script (PyTorch)
+│   ├── test_onnx.py          # Testing script (ONNX)
 │   ├── convert_dataset.py    # Dataset conversion
 │   └── visualize.py          # Visualization tools
 ├── work_dirs/                 # Training outputs
@@ -124,9 +125,28 @@ python tools/train.py configs/hrnet_w32_animalpose.py --work-dir work_dirs/hrnet
 ```
 
 ## Testing
+
+### PyTorch Model Testing
 ```bash
 python tools/test.py configs/rtmpose_m_ap10k.py work_dirs/rtmpose_m/best.pth
 ```
+
+### ONNX Model Testing
+Test ONNX exported models on COCO test datasets with comprehensive metrics:
+```bash
+python tools/test_onnx.py work_dirs/rtmpose_m/model.onnx configs/rtmpose_m_ap10k.py \
+    --test-dataset data/annotations/horse_test.json \
+    --image-dir data/test/
+```
+
+The script computes standard COCO metrics including:
+- **AP** (Average Precision @ IoU=0.50:0.95)
+- **AP50** (Average Precision @ IoU=0.50)
+- **AP75** (Average Precision @ IoU=0.75)
+- **AP95** (Average Precision @ IoU=0.95)
+- **AR** (Average Recall)
+
+Results are saved to `Test/[modelname]/` directory with predictions, metrics, and a detailed report.
 
 ## Visualization
 ```bash
