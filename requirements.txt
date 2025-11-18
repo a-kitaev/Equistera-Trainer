@@ -41,3 +41,7 @@ json5>=0.9.14
 # V2 Enhancements: Text embeddings and NLP
 sentence-transformers>=2.2.0  # For anatomical priors via text embeddings
 transformers>=4.30.0  # Required by sentence-transformers
+
+# ONNX export and inference
+onnx>=1.14.0
+onnxruntime>=1.15.0  # CPU version; use onnxruntime-gpu for GPU support
