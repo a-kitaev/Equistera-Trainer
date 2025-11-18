@@ -166,6 +166,33 @@ make test-rtm
 python tools/test.py configs/rtmpose_m_ap10k.py work_dirs/rtmpose_m/best.pth
 ```
 
+### Export to ONNX
+
+Export your trained model to ONNX format for deployment:
+
+```bash
+python tools/export_onnx_opset21.py
+```
+
+### Test ONNX Model
+
+Test the exported ONNX model on your test dataset:
+
+```bash
+# Basic testing
+python tools/test_onnx.py \
+    --onnx work_dirs/rtmpose_m_horse_opset17.onnx \
+    --ann data/annotations/horse_test.json \
+    --img-dir data/test
+
+# With visualizations
+python tools/test_onnx.py \
+    --onnx work_dirs/rtmpose_m_horse_opset17.onnx \
+    --ann data/annotations/horse_test.json \
+    --img-dir data/test \
+    --show-dir visualizations/onnx_test
+```
+
 ### Visualize Predictions
 
 ```bash
